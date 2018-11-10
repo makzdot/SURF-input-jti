@@ -1,12 +1,12 @@
 ![Beta](https://img.shields.io/badge/status-beta-yellowgreen.svg?style=flat "Beta")
 ![Community](https://img.shields.io/badge/support-community-blue.svg?style=flat "Community")
 
-# open-nti-input-jti
+# SURF-input-jti
 
 Standalone container running fluentd and Juniper Telemetry plugin.  
 
-This container has been designed to work with the project OpenNTI but it can fit for other projects as well.  
-Multiple type of output are supported and can be defined at launch time:
+This container has been designed to work with the project OpenNTI but it has ben (shamelessly) ripped from the open-nti project.
+Multiple types of outputs are supported and can be defined at launch time:
 - Influxdb (default)
 - Kafka
 - Stdout
@@ -40,23 +40,8 @@ KAFKA_ADDR: localhost
 KAFKA_PORT: 9092
 ```
 
-Here is an example to define an environment variable
+Here is an example to build this container and define an environment variable
 ```
-docker run -d -e INFLUXDB_ADDR='localhost' -i juniper/open-nti-input-jti
+docker build -t surf-input-jti https://github.com/makzdot/SURF-input-jti.git
+docker run -d -e INFLUXDB_ADDR='influxhost.example.com' surf-input-jti
 ```
-
-## Docker Compose
-
-> The Load Balancer is not yet part of the docker-compose file
-> For now, it's recommended to use https://hub.docker.com/r/eslam/pen/
-
-To start
-```
-docker-compose up -d
-```
-
-If you want to increase or decrease the number of input-jti container, you can use `docker-compose scale`
-```
-docker-compose scale open-nti-input-jti=5
-```
-Note:  A load balance service is recommended to work when mulitple input-jti instances are created
